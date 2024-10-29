@@ -27,7 +27,7 @@ public class Factory {
         }
 
         if (s.charAt(left) == '(') {
-            
+
         }
 
         return new Num(0);
@@ -48,9 +48,35 @@ public class Factory {
 
 
     //maps index of left parenthesis to index of the corresponding right parenthesis
-    public Map mapParenthesisIndex(String s) {
+    public Map<Integer, Integer> mapParenthesisIndex(String s) {
+
+        Map<Integer, Integer> map = new HashMap<>();
+
+        mapParenthesisIndex(s, map);
+
+        return map;
         
-        return new HashMap<>();
+    }
+
+    public Map<Integer, Integer> mapParenthesisIndex(String s, Map<Integer, Integer> map) {
+
+        if (s.contains("(") && s.contains(")")) {
+            int left = 0;
+            int right = s.length()-1;
+
+            while (s.charAt(left) != '(') {
+                left += 1;
+            }
+
+            while (s.charAt(right) != ')') {
+                right -= 1;
+            }
+
+            map.put(left, right);
+            mapParenthesisIndex(s.substring(left +1, right), map);
+        }
+
+        return map;
     }
     
 
